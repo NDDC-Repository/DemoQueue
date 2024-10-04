@@ -1,6 +1,9 @@
 using System;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
+using DemoFunction.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -17,13 +20,12 @@ namespace DemoFunction
 
         [Function(nameof(Demo))]
         public async Task Run(
-            [ServiceBusTrigger("myqueue", Connection = "")]
+            [ServiceBusTrigger("demoqueue", Connection = "ServiceBusConnectionString")]
             ServiceBusReceivedMessage message,
             ServiceBusMessageActions messageActions)
         {
-            //_logger.LogInformation("Message ID: {id}", message.MessageId);
-            //_logger.LogInformation("Message Body: {body}", message.Body);
-            //_logger.LogInformation("Message Content-Type: {contentType}", message.ContentType);
+           var jsonString = Encoding.UTF8.GetString(message.Body);
+            PersonModel person = JsonSerializer.Deserialize<PersonModel>(jsonString);
 
             // Complete the message
             await messageActions.CompleteMessageAsync(message);
