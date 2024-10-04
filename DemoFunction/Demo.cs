@@ -6,24 +6,24 @@ using Microsoft.Extensions.Logging;
 
 namespace DemoFunction
 {
-    public class Function1
+    public class Demo
     {
-        private readonly ILogger<Function1> _logger;
+        private readonly ILogger<Demo> _logger;
 
-        public Function1(ILogger<Function1> logger)
+        public Demo(ILogger<Demo> logger)
         {
             _logger = logger;
         }
 
-        [Function(nameof(Function1))]
+        [Function(nameof(Demo))]
         public async Task Run(
             [ServiceBusTrigger("myqueue", Connection = "")]
             ServiceBusReceivedMessage message,
             ServiceBusMessageActions messageActions)
         {
-            _logger.LogInformation("Message ID: {id}", message.MessageId);
-            _logger.LogInformation("Message Body: {body}", message.Body);
-            _logger.LogInformation("Message Content-Type: {contentType}", message.ContentType);
+            //_logger.LogInformation("Message ID: {id}", message.MessageId);
+            //_logger.LogInformation("Message Body: {body}", message.Body);
+            //_logger.LogInformation("Message Content-Type: {contentType}", message.ContentType);
 
             // Complete the message
             await messageActions.CompleteMessageAsync(message);
