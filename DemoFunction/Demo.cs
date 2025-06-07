@@ -75,7 +75,7 @@ namespace DemoFunction
             reportAttachment.ContentDisposition.FileName = "yourFileName.pdf";
 
             var myEmail = FluentEmail.Core.Email
-                .From("do-not-reply@www.nddc.gov.ng", "NDDC Notification")
+                .From("no-reply@nddc.gov.ng", "NDDC Notification")
                 .Subject(subject)
                 .To(email)
                 .UsingTemplate(template.ToString(), new { });
